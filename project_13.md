@@ -87,3 +87,42 @@ git switch roles-feature
 ```
 
 ![new branch](./images/8.png)
+
+Inside `roles` directory create your new MySQL role with `ansible-galaxy install geerlingguy.mysql` and rename the folder to `mysql`
+
+```bash
+cd ansible-config-mgt
+mkdir roles
+cd roles
+
+# Mysql role creation from Anible Galaxy
+ansible-galaxy install geerlingguy.mysql
+
+mv geerlingguy.mysql/ mysql
+```
+
+![new branch](./images/9.png)
+
+Read `README.md` file, and edit roles configuration to use correct credentials for MySQL required for the `tooling` website.
+
+In the `default` folder of the MySql parent directory, edit the main.yml file.
+
+![new branch](./images/10.png)
+
+Uncomment and update authentication details in the file. Save abnd exit.
+
+![new branch](./images/11.png)
+
+Upload the changes into your GitHub
+
+```bash
+git add .
+git commit -m "Commit new role files into GitHub"
+git push --set-upstream origin roles-feature
+```
+
+## Load Balancer roles
+
+In other to choose which Load Balancer to use, Nginx or Apache, we need to have two roles respectively - Nginx and Apache.
+
+
