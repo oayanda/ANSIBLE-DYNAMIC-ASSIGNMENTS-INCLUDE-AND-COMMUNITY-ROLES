@@ -1,5 +1,5 @@
 # Introducing Dynamic Assignment Into Our structure
-This is continuation project from ansible refactoring, static assignment and roles project. [Click here](https://github.com/oayanda/ANSIBLE-REFACTORING-AND-STATIC-ASSIGNMENTS-IMPORTS-AND-ROLES-)
+This is a continuation project from ansible refactoring, static assignment and roles project. [See here](https://github.com/oayanda/ANSIBLE-REFACTORING-AND-STATIC-ASSIGNMENTS-IMPORTS-AND-ROLES-)
 
 Start a `new branch` in the `https://github.com/oayanda/ansible-config-mgt` GitHub repository  and call it `dynamic-assignments`.
 
