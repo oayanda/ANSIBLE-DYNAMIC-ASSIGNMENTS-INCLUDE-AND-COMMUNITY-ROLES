@@ -62,11 +62,13 @@ Update `site.yml` file to make use of the dynamic assignment with the code snipp
 ## Community Roles
 
 Create a role for MySQL database – it should install the MySQL package, create a database and configure users.
-However, we can simplily do by using pre-develop, production ready ansible roles from   [Ansible galaxy](https://galaxy.ansible.com/home).
+However, we can simplily do this by using a pre-develop, production ready ansible roles from   [Ansible galaxy](https://galaxy.ansible.com/home).
 
 We will use a  [MySQL role developed by geerlingguy](https://galaxy.ansible.com/geerlingguy/mysql).
 
-On Jenkins-Ansible server make sure that git is installed with git --version, then go to ‘`ansible-config-mgt`’ directory and run.
+Let's continue working from the terminal of bastion server and update version of the ansible-config-mgt folder.
+
+On Bastion server make sure that git is installed with git --version, then go to ‘`ansible-config-mgt`’ directory and run.
 
 > Disable Your Github webhook - it is not needed to complete and also to maintain the code.
 
@@ -77,7 +79,7 @@ git --version
 
 ![new branch](./images/7.png)
 
-In the ansible-config-mgt directory run the code in the snippet below.
+In the ansible-config-mgt directory run the code in the snippet below to create and start working on a new branch.
 
 ```bash
 git init
@@ -123,6 +125,8 @@ git add .
 git commit -m "Commit new role files into GitHub"
 git push --set-upstream origin roles-feature
 ```
+
+> Create a Pull Request and merge it to main branch on GitHub.
 
 ## Load Balancer roles
 
