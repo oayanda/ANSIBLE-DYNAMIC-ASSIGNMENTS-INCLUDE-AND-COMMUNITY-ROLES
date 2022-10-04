@@ -1,4 +1,5 @@
 # Introducing Dynamic Assignment Into Our structure
+This is continuation project from ansible refactoring, static assignment and roles project. [Click here](https://github.com/oayanda/ANSIBLE-REFACTORING-AND-STATIC-ASSIGNMENTS-IMPORTS-AND-ROLES-)
 
 Start a `new branch` in the `https://github.com/oayanda/ansible-config-mgt` GitHub repository  and call it `dynamic-assignments`.
 
@@ -88,6 +89,8 @@ git switch roles-feature
 
 ![new branch](./images/8.png)
 
+## Community roles using ansible galaxy
+
 Inside `roles` directory create your new MySQL role with `ansible-galaxy install geerlingguy.mysql` and rename the folder to `mysql`
 
 ```bash
@@ -123,6 +126,60 @@ git push --set-upstream origin roles-feature
 
 ## Load Balancer roles
 
+We are have used Nginx and Apache application Load balancers manually in the previous project but now we are going to implement same with ansible roles. However, we can run both at the same time because both perform similar job as a application load balancer but we can configure them in such a way that we can choose which one to use.
+
 In other to choose which Load Balancer to use, Nginx or Apache, we need to have two roles respectively - Nginx and Apache.
 
+> To better understand the roles and it's components - I have decided to create the roles for the Load balancers(Nginx and Apache ) manually.
 
+Create Both Nginx and Apache roles to contain this subfolders `defaults, tasks, handlers and templates`. Create a `main.yml` file in each `default, tasks and handlers`.
+
+For both Nginx's and Apache's `defaults/main.yml` files, add a control variable as well as the webserver ip's `enable_apache_lb: false`
+and `load_balancer_is_required: false`
+
+For Apache role in defaults/main.yml
+![new branch](./images/12.png)
+For Nginx role in defaults/main.yml
+![new branch](./images/13.png)
+
+For Apache handlers/main.yml, it holds a play to be trigger a `notify` keyword in tasks/main.yml. This is used because of the change in the configuration file which requires the apache service to be restarted to effect the change.
+
+For Apache role in handlers/main.yml
+![new branch](./images/14.png)
+
+The tasks/main.yml file holds the main tasks for both roles (Nginx and Apache). This includes install, editing the configuration file as well enable some services.
+
+For Apache role in tasks/main.yml
+![new branch](./images/15.png)
+
+For Nginx role in tasks/main.yml
+![new branch](./images/16.png)
+
+`templates/` holds the required file in the tasks/main.yml play.
+
+For Apache role in templates/vhosts.conf.j2
+![new branch](./images/17.png)
+
+For Nginx role in templates/nginx.conf
+![new branch](./images/18.png)
+
+Create `loadbalancer.yml` in the static-assignment folder to control the LB roles and iniate the LB roles like this below.
+![new branch](./images/19.png)
+
+Let's update the main `playbooks/site.yml` file
+![new branch](./images/20.png)
+
+Finally for this concurrent setup, let's add the control logic in `dev.yml` since `with_first_found ` from the `dynamic-assignment/env-vars.yml` file we included above will process the first file found. This means, it will find dev.yml first.
+![new branch](./images/21.png)
+
+In `env-vars/dev.yml`
+![new branch](./images/22.png)
+
+>With `enable_apache_lb` and `load_balancer_is_required` set to `true` - This means apache load balancer would be configured and if nginx is true, nginx would be configured.
+
+> Make sure to open required ports - 80 and 3306
+
+Run Playbook
+![new branch](./images/23.png)
+View in the browser
+![new branch](./images/24.png)
